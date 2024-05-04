@@ -1,8 +1,45 @@
+
+ <!DOCTYPE html>
+<html lang="en">
 <head>
-    Hello World!
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Marketplace DApp</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p>
-        I am Richi The Robot. Speed 1THz. Memory 1ZB.
-    </p>
+    <header>
+        <h1>A Basic Decentralized Marketplace </h1>
+        <h4>The goal of this project is to develop a decentralized application (DApp) that allows users to list and buy items, leveraging Ethereum smart contracts for transaction management.</h4>
+        <button onclick="connectWallet()" class="connect-wallet-btn">Connect Ethereum Wallet <i class="fa-solid fa-link"></i> <i class="fa-brands fa-ethereum"></i> <i class="fa-solid fa-wallet"></i></button>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <form id="listItemForm">
+                <h2>List an Item <i class="fa-solid fa-list"></i> </h2>
+                <label for="title">Item Name:</label>
+                <input type="text" id="title" placeholder="Name" required>
+                <label for="description">Description:</label>
+                <textarea id="description" placeholder="Description" required></textarea>
+                <label for="price">Price in ETH:</label>
+                <input type="text" id="price" placeholder="Price in ETH" required>
+                <button type="submit" id="listItem">List Item</button>
+            </form>
+        </section>
+
+        <section class="items-section">
+            <div id="items">
+                <!-- Items and transaction hashes will be listed here -->
+            </div>
+        </section>
+    </main>
+    <footer>Made with <i class="fas fa-heart"></i> by Sai Rishith Chintala</footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+    <script src="app.js"></script>
 </body>
+</html>
