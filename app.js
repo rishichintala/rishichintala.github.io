@@ -260,10 +260,10 @@ function appendItemToDOM(item, itemsDiv) {
         <div id="hash-${item.id}"></div>
     `;
     itemsDiv.appendChild(itemDiv);
-    let hashes = JSON.parse(localStorage.getItem('transactionHashes') || '{}');
-    if (hashes[item.id]) {
-        displayTransactionHashes(hashes[item.id], item.id);
-    }
+    // let hashes = JSON.parse(localStorage.getItem('transactionHashes') || '{}');
+    // if (hashes[item.id]) {
+    //     displayTransactionHashes(hashes[item.id], item.id);
+    // }
 }
 
 function displayTransactionHashes(hashes, itemId) {
@@ -298,7 +298,12 @@ async function listItem(title, description, price) {
         .on('receipt', async function(receipt) {
             if (receipt.events.ItemListed && receipt.events.ItemListed.returnValues) {
                 const newItemId = receipt.events.ItemListed.returnValues.id;
-                storeHash(newItemId, 'Listed', receipt.transactionHash);
+
+                if (confirm(`List Completed: ${receipt.transactionHash}. Do you wanna see the confirmation block?`)) {
+                    window.open(`${sepoliaEtherscanBaseUrl}${receipt.transactionHash}`, '_blank');
+                }
+
+                // storeHash(newItemId, 'Listed', receipt.transactionHash);
                 await loadItems();
                 resetForm();
             } else {
@@ -311,15 +316,6 @@ async function listItem(title, description, price) {
         });
 }
 
-function storeHash(itemId, action, hash) {
-    let hashes = JSON.parse(localStorage.getItem('transactionHashes') || '{}');
-    if (!hashes[itemId]) {
-        hashes[itemId] = {};
-    }
-    hashes[itemId][action] = hash;
-    localStorage.setItem('transactionHashes', JSON.stringify(hashes));
-}
-
 async function purchaseItem(itemId) {
     const item = await contract.methods.getItem(itemId).call();
     contract.methods.purchaseItem(itemId).send({
@@ -327,7 +323,10 @@ async function purchaseItem(itemId) {
         value: item.price
     })
     .on('receipt', async function(receipt) {
-        storeHash(itemId, 'Purchased', receipt.transactionHash);
+        if (confirm(`Purchase Completed: ${receipt.transactionHash}. Do you wanna see the confirmation block?`)) {
+            window.open(`${sepoliaEtherscanBaseUrl}${receipt.transactionHash}`, '_blank');
+        }
+
         await loadItems();
     })
     .on('error', function(error) {
