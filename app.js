@@ -260,10 +260,6 @@ function appendItemToDOM(item, itemsDiv) {
         <div id="hash-${item.id}"></div>
     `;
     itemsDiv.appendChild(itemDiv);
-    // let hashes = JSON.parse(localStorage.getItem('transactionHashes') || '{}');
-    // if (hashes[item.id]) {
-    //     displayTransactionHashes(hashes[item.id], item.id);
-    // }
 }
 
 function displayTransactionHashes(hashes, itemId) {
@@ -303,7 +299,6 @@ async function listItem(title, description, price) {
                     window.open(`${sepoliaEtherscanBaseUrl}${receipt.transactionHash}`, '_blank');
                 }
 
-                // storeHash(newItemId, 'Listed', receipt.transactionHash);
                 await loadItems();
                 resetForm();
             } else {
