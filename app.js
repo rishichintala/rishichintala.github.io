@@ -251,8 +251,8 @@ function appendItemToDOM(item, itemsDiv) {
     itemDiv.id = `item-${item.id}`;
     itemDiv.innerHTML = `
         <p>
-            <strong>Title:</strong> ${item.title}<br>
-            <strong>Description:</strong> ${item.description}<br>
+            <strong>Title:</strong> ${he.encode(item.title)}<br>
+            <strong>Description:</strong> ${he.encode(item.description)}<br>
             <strong>Price:</strong> ${web3.utils.fromWei(item.price, 'ether')} ETH<br>
             <strong>Status:</strong> ${item.isSold ? 'Sold' : 'Available'}
             ${!item.isSold ? `<button onclick="purchaseItem(${item.id})" id='buyBtn'>Buy <i class="fa-solid fa-coins"></i> </button>` : ''}
